@@ -1,5 +1,6 @@
 class Numbers
   def check_entry(entered_sequence)
-    entered_sequence == '4 8 15 16 23 42'
+    entered_sequence = entered_sequence.gsub(/ /,'')
+    entered_sequence == '4815162342'
   end
 end
