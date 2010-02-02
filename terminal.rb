@@ -8,7 +8,10 @@ class Terminal
   end
 
   def run!
-
+    Dharma.new(self) do
+      ask_for_numbers
+      respond
+    end
   end
 end
 
