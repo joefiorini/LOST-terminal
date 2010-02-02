@@ -1,7 +1,7 @@
 class Numbers
 
   def set(numbers)
-    @numbers = numbers.squeeze(' ').chomp
+    @numbers = numbers.squeeze(' ')
   end
 
   def valid?
