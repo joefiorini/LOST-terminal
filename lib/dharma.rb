@@ -1,9 +1,10 @@
 require File.dirname(__FILE__) + '/sound_player'
 require File.dirname(__FILE__) + '/story_printer'
 require File.dirname(__FILE__) + '/numbers'
+require 'highline'
 
 class Dharma
-
+  
   def initialize(terminal, &block)
     @terminal = terminal
     @numbers = Numbers.new
@@ -13,17 +14,21 @@ class Dharma
 
   def volunteer_for_program
     StoryPrinter.print(:volunteer_for_program, @terminal.output)
+    StoryPrinter.print(:enter_the_numbers, @terminal.output)
+    StoryPrinter.print(:plane, @terminal.output)
   end
 
   def ask_for_numbers
     @sound_player.play_sound_looped(:alarm)
-    @numbers.set(@terminal.input.gets)
+    @numbers.set(HighLine.new.ask(">: "))
     @sound_player.stop_sound!
   end
 
   def plane_crashed!
     Thread.new { @sound_player.play_sound(:system_failure) }
-    Thread.new { @sound_player.play_sound(:magnet) }
+    Thread.new { sleep(4.9); @sound_player.play_sound(:system_failure) }
+    Thread.new { sleep(10); @sound_player.play_sound(:system_failure) }
+    Thread.new { sleep(10); @sound_player.play_sound(:magnet) }
     StoryPrinter.print(:plane_crashed, @terminal.output)
   end
 
